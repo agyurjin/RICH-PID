@@ -1,0 +1,14 @@
+{
+    "learning_rate":1e-3,
+    "iterations":100,
+    "batch_size":4,
+    "printout_iter":5e3,
+    "split_ratio":0.9,
+    "file_path": "../kaon/csvs/data_for_ml.csv",
+    "output_folder": "test_model",
+    "input_cols": ["pxRich","pyRich","pzRich","cxRich","cyRich","czRich","xRich","yRich","zRich"],
+    "out_cols": ["isKaon"],
+    "particle_names":["Pion","Kaon"],
+    "model_name":"model.pth",
+    "root_name":"results.root"
+}
