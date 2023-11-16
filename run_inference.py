@@ -24,7 +24,7 @@ def run_inference(json_name, chunk_size, csv_path):
     model_name = str(exp_name_to_load / json_data['model_name'])
     data_mean = torch.tensor(json_data['data_mean'])
     data_std = torch.tensor(json_data['data_std'])
-    kin_cols = json_data['input_cols']
+    kin_cols = json_data['track_cols']
     pred_cols = json_data['out_cols']
     particles = json_data['particle_names']
     hit_cols = json_data['hits_cols']

@@ -9,6 +9,14 @@ Hit distribution is based on the pmt-anode combination, it should be converted t
 
 ## Input CSV file for training
 
+Each line in the CSV file is track information that should be used for particle identification. All the columns that are in JSON file mention as tracks, hits and out columns must be in the CSV file.
+
+Track based values are either float or integer values.
+
+The hit base information is semicolon separated string. For example 'x1;x2;..xN;'. 
+
+Out column is integer value index of the particle, in the JSON input particle_names. 
+
 ## Input JSON
 
 Input JSON file is the main parameters file to use for both training and inference. During the training it will load all the inportant information and at the end of the training it will save in the output folder updated version of the JSON file for inference. Parameters in the json file are:
@@ -27,11 +35,11 @@ Input JSON file is the main parameters file to use for both training and inferen
 
 `output_folder`: Folder name to output results.
 
-`input_cols`: Columns to use during training (per track information).
+`track_cols`: Track based columns to use during training.
 
-`hits_cols`: Columns for hit disribution should be ordered (x,y,time)
+`hit_cols`: Hit based columns to use during training. Column names should be ordered -> (x,y,time)
 
-`out_cols`: Output column that should be predicted.
+`out_cols`: Prediction column for training.
 
 `particle_names`: Name of the particles.
 

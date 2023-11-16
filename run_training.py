@@ -21,7 +21,7 @@ from utils import split_data, conf_mat_report
 def run_training(json_name):
     params = json.load(open(json_name))
 
-    kin_cols = params['input_cols']
+    kin_cols = params['track_cols']
     hit_cols = params['hits_cols']
     pred_cols = params['out_cols']
     particles = params['particle_names']
