@@ -22,6 +22,7 @@ def run_training(json_name):
     params = json.load(open(json_name))
 
     kin_cols = params['input_cols']
+    hit_cols = params['hits_cols']
     pred_cols = params['out_cols']
     particles = params['particle_names']
     split_ratio = params['split_ratio']
@@ -42,8 +43,8 @@ def run_training(json_name):
     df_train[kin_cols] = (df_train[kin_cols] - data_mean)/data_std
     df_test[kin_cols] = (df_test[kin_cols] - data_mean)/data_std 
 
-    train_set = RICHDataset(df_train, kin_cols, pred_cols, device)
-    test_set = RICHDataset(df_test, kin_cols, pred_cols, device)
+    train_set = RICHDataset(df_train, kin_cols, pred_cols, hit_cols, device)
+    test_set = RICHDataset(df_test, kin_cols, pred_cols, hit_cols, device)
 
     train_data = DataLoader(train_set, batch_size=batch_size, shuffle=True)
     test_data = DataLoader(test_set, batch_size=int(len(test_set)/8), shuffle=False)

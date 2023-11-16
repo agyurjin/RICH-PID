@@ -27,7 +27,7 @@ def run_inference(json_name, chunk_size, csv_path):
     kin_cols = json_data['input_cols']
     pred_cols = json_data['out_cols']
     particles = json_data['particle_names']
-
+    hit_cols = json_data['hits_cols']
 
     model_NN = Generator(len(kin_cols), len(particles))
     model_NN.load_state_dict(torch.load(model_name))
@@ -58,6 +58,10 @@ def run_inference(json_name, chunk_size, csv_path):
     main_df = pd.read_csv(csv_path, chunksize=chunk_size, index_col=False)
     df_residual = pd.DataFrame()
     iter_start = True
+
+    print('***********************')
+    print('*** START INFERENCE ***')
+    print('***********************')
     while iter_start:
         try:
             df_chunk = next(main_df)
@@ -69,7 +73,7 @@ def run_inference(json_name, chunk_size, csv_path):
             iter_start = False
 
         df_process[kin_cols] = (df_process[kin_cols] - data_mean)/data_std
-        main_set = RICHDataset(df_process, kin_cols, pred_cols)
+        main_set = RICHDataset(df_process, kin_cols, pred_cols, hit_cols)
         main_data = DataLoader(main_set, batch_size=10, shuffle=False)
         
         idx=0
@@ -88,11 +92,13 @@ def run_inference(json_name, chunk_size, csv_path):
                 pred_mod_50[0] = 211 if np.random.random()<0.5 else 321
                 pred_mod_85[0] = 211 if np.random.random()<0.85 else 321
                 res_tree.Fill()
-            break
-        break
         chunk_num+=1
-    print()
+
+    print(f'[INFERENCE] : Processed events : {idx+chunk_num*chunk_size+1}')
     res_file.Write()
+    print('***********************')
+    print('*** ROOT FILE SAVED ***')
+    print('***********************')
 
 
 

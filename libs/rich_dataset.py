@@ -5,11 +5,12 @@ from torchvision.transforms import ToTensor
 
 
 class RICHDataset(Dataset):
-    def __init__(self, df, kinematic_colums, label_cols, device='cpu'):
+    def __init__(self, df, kinematic_colums, label_cols, hit_cols, device='cpu'):
         self.df = df.reset_index().drop(columns=('index'))
         self.kin_cols = kinematic_colums
         self.device = device
         self.label_cols = label_cols
+        self.hit_cols = hit_cols
 
     def __len__(self):
         return len(self.df)
@@ -19,9 +20,9 @@ class RICHDataset(Dataset):
         kin_vector = torch.tensor(np.array(track_df[self.kin_cols], dtype=np.float32))
         
         rich_view = torch.zeros((1,23*8,28*8))
-        x = track_df['x'].split(';')[:-1]
-        y = track_df['y'].split(';')[:-1]
-        time = track_df['time'].split(';')[:-1]
+        x = track_df[self.hit_cols[0]].split(';')[:-1]
+        y = track_df[self.hit_cols[1]].split(';')[:-1]
+        time = track_df[self.hit_cols[2]].split(';')[:-1]
         for i,j,t in zip(x,y,time):
             rich_view[0,int(i),int(j)] = float(t)
 

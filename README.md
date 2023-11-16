@@ -7,21 +7,36 @@ Neural network model to run the Ring Image Cherenkov Detector (RICH) Particle Id
 
 Hit distribution is based on the pmt-anode combination, it should be converted to raw-column values. 
 
+## Input CSV file for training
+
 ## Input JSON
 
 Input JSON file is the main parameters file to use for both training and inference. During the training it will load all the inportant information and at the end of the training it will save in the output folder updated version of the JSON file for inference. Parameters in the json file are:
 
 `learning_rate`: Learning rate for neural network gradient update.
+
 `iterations`: Number of iterations to do during training.
+
 `batch_size`: Number of elements to process during one iteration.
+
 `printout_iter`: Iteration monitoring. Runs model on test set, saves if it is better that previoues best model and prints the results.
+
 `split_ratio`: Train-Test split ratio.
+
 `file_path`: Path to CSV file that will be used for the training.
+
 `output_folder`: Folder name to output results.
+
 `input_cols`: Columns to use during training (per track information).
+
+`hits_cols`: Columns for hit disribution should be ordered (x,y,time)
+
 `out_cols`: Output column that should be predicted.
+
 `particle_names`: Name of the particles.
+
 `model_name`: Neural Network output model name.
+
 `root_name`: Name of the ROOT file to save, when the inference will run.
 
 ## Run training
